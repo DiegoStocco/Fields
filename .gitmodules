@@ -1,0 +1,3 @@
+[submodule "JAGE"]
+	path = JAGE
+	url = https://github.com/DiegoStocco/JAGE.git
