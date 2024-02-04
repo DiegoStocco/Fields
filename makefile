@@ -29,7 +29,7 @@ $(RESULT) : $(LIB_FILE) $(OBJS)
 	$(CC) $(addprefix -I, $(LIB_INCLUDE)) $(COMPILER_FLAGS) -c -o $@ $<
 
 $(LIB_FILE):
-	make -C ./libs/JAGE
+	make -C $(LIB_DIRECTORY)
 
 .PHONY: clean
 clean:
