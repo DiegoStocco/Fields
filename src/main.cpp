@@ -5,7 +5,7 @@
 
 #include "window.h"
 #include "errors.h"
-#include "field.h"
+#include "field.hpp"
 
 JAGE::Window* init()
 {
@@ -36,7 +36,7 @@ JAGE::Window* init()
 int main(int argc, char* argv[]) {
   JAGE::Window* window = init();
 
-  Field field;
+  Field field(3);
   float lastTime = glfwGetTime(), currTime;
   while(!window->shouldClose()) {
     currTime = glfwGetTime();
