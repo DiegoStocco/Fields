@@ -18,7 +18,7 @@ Field::Field(unsigned int nOfBodies) {
   m_bodiesPos = new JAGE::ShaderStorageBuffer(initial_pos, nOfBodies*sizeof(glm::vec2), GL_DYNAMIC_COPY);
 
   // Load shaders
-  //m_renderProgram = new JAGE::Shader({{"", GL_VERTEX_SHADER}, {"", GL_FRAGMENT_SHADER}});
+  m_renderProgram = new JAGE::Shader({{"shaders/vertex_shader.glsl", GL_VERTEX_SHADER}, {"shaders/fragment_shader.glsl", GL_FRAGMENT_SHADER}});
   m_updateBodiesProgram = new JAGE::Shader({{"shaders/update_bodies.glsl", GL_COMPUTE_SHADER}});
 
   // Triangles where to draw the field (whole screen)
@@ -28,7 +28,7 @@ Field::Field(unsigned int nOfBodies) {
      1.0f, -1.0f,
     -1.0f, -1.0f,
   };
-  JAGE::VertexBuffer triangles_buf(triangles_pos, sizeof(triangles_pos));
+  static JAGE::VertexBuffer triangles_buf(triangles_pos, sizeof(triangles_pos));
   JAGE::VertexBufferLayout layout;
   layout.Push<float>(2);
 
@@ -71,7 +71,7 @@ void Field::render(JAGE::Window* window) {
   JAGE::Renderer renderer;
   renderer.Clear();
 
-  //renderer.Draw(*m_triangles, *m_triangles_indicies, *m_renderProgram);
+  renderer.Draw(*m_triangles, *m_triangles_indicies, *m_renderProgram);
 
   glfwSwapBuffers(window->getWindow());
   glfwPollEvents();
