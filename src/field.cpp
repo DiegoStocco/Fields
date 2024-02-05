@@ -71,6 +71,8 @@ void Field::render(JAGE::Window* window) {
   JAGE::Renderer renderer;
   renderer.Clear();
 
+  m_bodiesPos->Bind(2);
+  m_updateBodiesProgram->SetUniform1i("nBodies", m_nBodies);
   renderer.Draw(*m_triangles, *m_triangles_indicies, *m_renderProgram);
 
   glfwSwapBuffers(window->getWindow());

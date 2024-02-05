@@ -10,5 +10,5 @@ layout(std430, binding = 2) buffer bodies {
 };
 
 void main() {
-  pos[gl_WorkGroupID.x] += deltaTime;
+  pos[gl_WorkGroupID.x] += deltaTime/20;
 }
