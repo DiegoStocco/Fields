@@ -14,7 +14,8 @@ Field::Field(unsigned int nOfBodies) {
   // Initialize bodies positions
   glm::vec2* initial_pos = new glm::vec2[nOfBodies];
   for(int i = 0; i < nOfBodies; i++)
-    initial_pos[i] = glm::vec2(0.0f, 0.0f);
+    initial_pos[i] = glm::vec2(2*(float)i/(nOfBodies+1)-1, 2*(float)i/(nOfBodies+1)-1);
+
   m_bodiesPos = new JAGE::ShaderStorageBuffer(initial_pos, nOfBodies*sizeof(glm::vec2), GL_DYNAMIC_COPY);
 
   // Load shaders
@@ -59,12 +60,6 @@ void Field::update(float deltaTime) {
   m_updateBodiesProgram->Bind();
 
   glDispatchCompute(m_nBodies, 1, 1);
-
-  glm::vec2* data = (glm::vec2*)m_bodiesPos->GetData();
-  for(int i = 0; i < m_nBodies; i++) {
-    std::cout << data[i].x << " " << data[i].y << "\n";
-  }
-  delete[] data;
 }
 
 void Field::render(JAGE::Window* window) {
@@ -72,7 +67,8 @@ void Field::render(JAGE::Window* window) {
   renderer.Clear();
 
   m_bodiesPos->Bind(2);
-  m_updateBodiesProgram->SetUniform1i("nBodies", m_nBodies);
+  m_renderProgram->SetUniform1i("nBodies", m_nBodies);
+  m_renderProgram->SetUniform2f("WindowSize", window->getWidth(), window->getHeight());
   renderer.Draw(*m_triangles, *m_triangles_indicies, *m_renderProgram);
 
   glfwSwapBuffers(window->getWindow());

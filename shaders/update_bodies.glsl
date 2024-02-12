@@ -10,5 +10,6 @@ layout(std430, binding = 2) buffer bodies {
 };
 
 void main() {
-  pos[gl_WorkGroupID.x] += deltaTime/20;
+  pos[gl_WorkGroupID.x] += deltaTime*vec2(cos(radians(360) * pos[gl_WorkGroupID.x].y),
+                                          -sin(radians(360) * pos[gl_WorkGroupID.x].x));
 }
