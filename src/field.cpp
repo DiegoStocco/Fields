@@ -57,9 +57,15 @@ Field::~Field() {
 }
 
 void Field::update(float deltaTime) {
+  glm::vec2 mouse_pos = glm::vec2(2,2) * m_window->getMousePos() / glm::vec2(m_window->getWidth(), m_window->getHeight()) - glm::vec2(1,1);
+
+  // The mouse position given by glfw is inverted
+  mouse_pos.y *= -1;
+
   m_bodiesPos->Bind(2);
   m_updateBodiesProgram->SetUniform1f("deltaTime", deltaTime);
   m_updateBodiesProgram->SetUniform1i("nBodies", m_nBodies);
+  m_updateBodiesProgram->SetUniform2f("MousePos", mouse_pos.x, mouse_pos.y);
   m_updateBodiesProgram->Bind();
 
   glDispatchCompute(m_nBodies, 1, 1);
