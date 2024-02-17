@@ -11,13 +11,13 @@
 Field::Field(unsigned int nOfBodies) {
   m_nBodies = nOfBodies;
 
-  // Initialize bodies positions
-  glm::vec2* initial_pos = new glm::vec2[nOfBodies];
+  // Initialize bodies positions and velocity
+  glm::vec4* initial_pos = new glm::vec4[nOfBodies];
   unsigned int grid[2] = {nOfBodies/(unsigned)sqrt(nOfBodies), (unsigned)sqrt(nOfBodies)};
   for(int i = 0; i < nOfBodies; i++)
-    initial_pos[i] = 2.0f*glm::vec2(float(i%grid[0])/grid[0] , float(i/grid[1])/grid[1]) - glm::vec2(1,1);
+    initial_pos[i] = 2.0f*glm::vec4(float(i%grid[0])/grid[0] , float(i/grid[1])/grid[1],0,0) - glm::vec4(1,1,0,0);
 
-  m_bodiesPos = new JAGE::ShaderStorageBuffer(initial_pos, nOfBodies*sizeof(glm::vec2), GL_DYNAMIC_COPY);
+  m_bodiesPos = new JAGE::ShaderStorageBuffer(initial_pos, nOfBodies*sizeof(glm::vec4), GL_DYNAMIC_COPY);
 
   delete[] initial_pos;
 

@@ -6,10 +6,11 @@ uniform int nBodies;
 uniform float deltaTime;
 
 layout(std430, binding = 2) buffer bodies {
-  vec2 pos[];
+  vec4 body[];
 };
 
 void main() {
-  pos[gl_WorkGroupID.x] += deltaTime*vec2(cos(radians(360) * pos[gl_WorkGroupID.x].y),
-                                          -sin(radians(360) * pos[gl_WorkGroupID.x].x));
+  body[gl_WorkGroupID.x].zw += deltaTime*vec2(cos(radians(360) * body[gl_WorkGroupID.x].y),
+                                          -sin(radians(360) * body[gl_WorkGroupID.x].x));
+  body[gl_WorkGroupID.x].xy += deltaTime * body[gl_WorkGroupID.x].zw;
 }
