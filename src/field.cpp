@@ -8,8 +8,9 @@
 #include "field.hpp"
 #include "vertex_buffer.h"
 
-Field::Field(unsigned int nOfBodies) {
+Field::Field(unsigned int nOfBodies, JAGE::Window* window) {
   m_nBodies = nOfBodies;
+  m_window = window;
 
   // Initialize bodies positions and velocity
   glm::vec4* initial_pos = new glm::vec4[nOfBodies];
@@ -64,15 +65,15 @@ void Field::update(float deltaTime) {
   glDispatchCompute(m_nBodies, 1, 1);
 }
 
-void Field::render(JAGE::Window* window) {
+void Field::render() {
   JAGE::Renderer renderer;
   renderer.Clear();
 
   m_bodiesPos->Bind(2);
   m_renderProgram->SetUniform1i("nBodies", m_nBodies);
-  m_renderProgram->SetUniform2f("WindowSize", window->getWidth(), window->getHeight());
+  m_renderProgram->SetUniform2f("WindowSize", m_window->getWidth(), m_window->getHeight());
   renderer.Draw(*m_triangles, *m_triangles_indicies, *m_renderProgram);
 
-  glfwSwapBuffers(window->getWindow());
+  glfwSwapBuffers(m_window->getWindow());
   glfwPollEvents();
 }

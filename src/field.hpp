@@ -7,11 +7,11 @@
 
 class Field {
   public:
-    Field(unsigned int nOfBodies);
+    Field(unsigned int nOfBodies, JAGE::Window* window);
     ~Field();
 
     void update(float deltaTime);
-    void render(JAGE::Window* window);
+    void render();
 
   private:
     JAGE::Shader* m_renderProgram;
@@ -22,4 +22,6 @@ class Field {
 
     JAGE::VertexArray* m_triangles;
     JAGE::IndexBuffer* m_triangles_indicies;
+
+    JAGE::Window* m_window;
 };
