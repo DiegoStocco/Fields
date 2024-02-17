@@ -36,7 +36,7 @@ JAGE::Window* init()
 int main(int argc, char* argv[]) {
   JAGE::Window* window = init();
 
-  Field field(3);
+  Field field(1024);
   float lastTime = glfwGetTime(), currTime;
   while(!window->shouldClose()) {
     currTime = glfwGetTime();

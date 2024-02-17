@@ -13,8 +13,9 @@ Field::Field(unsigned int nOfBodies) {
 
   // Initialize bodies positions
   glm::vec2* initial_pos = new glm::vec2[nOfBodies];
+  unsigned int grid[2] = {nOfBodies/(unsigned)sqrt(nOfBodies), (unsigned)sqrt(nOfBodies)};
   for(int i = 0; i < nOfBodies; i++)
-    initial_pos[i] = glm::vec2(2*(float)i/(nOfBodies+1)-1, 2*(float)i/(nOfBodies+1)-1);
+    initial_pos[i] = 2.0f*glm::vec2(float(i%grid[0])/grid[0] , float(i/grid[1])/grid[1]) - glm::vec2(1,1);
 
   m_bodiesPos = new JAGE::ShaderStorageBuffer(initial_pos, nOfBodies*sizeof(glm::vec2), GL_DYNAMIC_COPY);
 
