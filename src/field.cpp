@@ -19,6 +19,8 @@ Field::Field(unsigned int nOfBodies) {
 
   m_bodiesPos = new JAGE::ShaderStorageBuffer(initial_pos, nOfBodies*sizeof(glm::vec2), GL_DYNAMIC_COPY);
 
+  delete[] initial_pos;
+
   // Load shaders
   m_renderProgram = new JAGE::Shader({{"shaders/vertex_shader.glsl", GL_VERTEX_SHADER}, {"shaders/fragment_shader.glsl", GL_FRAGMENT_SHADER}});
   m_updateBodiesProgram = new JAGE::Shader({{"shaders/update_bodies.glsl", GL_COMPUTE_SHADER}});
@@ -43,7 +45,6 @@ Field::Field(unsigned int nOfBodies) {
   };
   m_triangles_indicies = new JAGE::IndexBuffer(triangles_indicies, 6);
 
-  delete[] initial_pos;
 }
 
 Field::~Field() {
